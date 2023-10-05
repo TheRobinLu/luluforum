@@ -1,9 +1,8 @@
 import * as express from "express";
-import { collections } from "./database";
 import * as mongodb from "mongodb";
+import { collections } from "./database";
 
 export const gptpromptRouter = express.Router();
-
 gptpromptRouter.use(express.json());
 
 gptpromptRouter.get("/", async (_req, res) => {
@@ -56,10 +55,12 @@ gptpromptRouter.put("/:id", async (req, res) => {
 			$set: gptprompt,
 		});
 
-		if (result && result.matchedCount) {
-			res.status(200).send(`Updated an gptprompt: ID ${id}.`);
-		} else if (!result.matchedCount) {
-			res.status(404).send(`Failed to find an gptprompt: ID ${id}`);
+		if (result && result.matchedCount !== undefined) {
+			if (result.matchedCount) {
+				res.status(200).send(`Updated an gptprompt: ID ${id}.`);
+			} else {
+				res.status(404).send(`Failed to find an gptprompt: ID ${id}`);
+			}
 		} else {
 			res.status(500).send(`Failed to update an gptprompt: ID ${id}`);
 		}
@@ -74,10 +75,12 @@ gptpromptRouter.delete("/:id", async (req, res) => {
 		const query = { _id: new mongodb.ObjectId(id) };
 		const result = await collections.gptprompts.deleteOne(query);
 
-		if (result && result.deletedCount) {
-			res.status(200).send(`Deleted an gptprompt: ID ${id}.`);
-		} else if (!result.deletedCount) {
-			res.status(404).send(`Failed to find an gptprompt: ID ${id}`);
+		if (result && result.deletedCount !== undefined) {
+			if (result.deletedCount) {
+				res.status(200).send(`Deleted an gptprompt: ID ${id}.`);
+			} else {
+				res.status(404).send(`Failed to find an gptprompt: ID ${id}`);
+			}
 		} else {
 			res.status(500).send(`Failed to delete an gptprompt: ID ${id}`);
 		}

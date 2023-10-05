@@ -19,7 +19,7 @@ export interface ICategory {
 }
 
 export interface IGPTPrompt {
-	_id: string;
+	_id?: mongodb.ObjectId;
 	sessionID: string;
 	user: string;
 	msg: {
