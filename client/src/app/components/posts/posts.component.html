@@ -1,0 +1,26 @@
+<div class="p-1">Category: {{selectedCategory}}</div>
+<div class="p-1 d-flex flex-row  light-sky-blue" *ngFor="let post of posts$ | async">
+
+  <div class="px-1 ">{{post.topic }}</div>
+
+  <!-- <div class="px-1">{{post.gptPromptId}}</div> -->
+
+  <div class="px-1 p-1" style="font-size: 80%">{{post.createAt }} </div>
+  <div class="px-1 p-1" style="font-size: 80%">Reads: {{post.reads }}</div>
+</div>
+
+<!-- display current page -2 to cureent page +1 on left, and totalPages on right -->
+<div class="p-1 d-flex flex-row ">
+  <div> </div>
+  <div class="p-1 " *ngFor="let onePage of pages ">
+
+    <div>{{onePage}} </div>
+
+  </div>
+
+  <div class="p-1 px-4 ">
+
+    <div class=" ">Total: {{totalPages}} </div>
+
+  </div>
+</div>

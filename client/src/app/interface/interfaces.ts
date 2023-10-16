@@ -28,3 +28,5 @@ export interface IGPTPrompt {
 	}[];
 	status: string;
 }
+
+export interface IPost extends IForum, IGPTPrompt {}

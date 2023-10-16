@@ -1,22 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { ICategory } from "../../interface/interfaces";
 import { CategoryService } from "../../services/category.service";
+// input output category
 
 @Component({
-	selector: "app-categories",
-	templateUrl: "./categories.component.html",
+	selector: "app-categoriesmenu",
+	templateUrl: "./categoriesmenu.component.html",
 	// template: `<p>component html categories works!</p>`,
 	styles: [],
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesMenuComponent implements OnInit {
+	@Output() categorySelected: EventEmitter<string> = new EventEmitter<string>();
 	categories$: Observable<ICategory[]> = new Observable();
 	isChinese: boolean = false;
 
 	constructor(private categoryService: CategoryService) {}
 
 	public onCategoryClick(category: any) {
+		this.categorySelected.emit(category);
 		console.log(category);
 	}
 

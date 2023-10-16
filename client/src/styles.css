@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+.bg-lighten-xl {
+	background-color: #bdf !important;
+}
+
+.light-sky-blue {
+	background-color: #cbedff;
+}

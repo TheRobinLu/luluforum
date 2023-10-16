@@ -26,9 +26,9 @@ connectToDatabase(ATLAS_URI)
 		const app = express();
 		app.use(cors());
 		app.use("/employees", employeeRouter);
-		app.use("/category", categoryRouter);
-		app.use("/forum", forumRouter);
-		app.use("/gptprompt", gptpromptRouter);
+		app.use("/categories", categoryRouter);
+		app.use("/forums", forumRouter);
+		app.use("/gptprompts", gptpromptRouter);
 
 		// start the Express server
 		app.listen(5200, () => {

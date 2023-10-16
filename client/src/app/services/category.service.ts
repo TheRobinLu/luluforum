@@ -1,16 +1,19 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject, tap } from "rxjs";
-import { ICategory } from "../../interface/interfaces";
+import { ICategory } from "../interface/interfaces";
+import { environment } from "src/environments/environment";
 
 @Injectable({
 	providedIn: "root",
 })
 export class CategoryService {
-	private url = process.env["API_URL"];
+	private url: string;
 	private categories$: Subject<ICategory[]> = new Subject();
 
-	constructor(private httpClient: HttpClient) {}
+	constructor(private httpClient: HttpClient) {
+		this.url = environment.apiUrl;
+	}
 
 	private refreshCategories() {
 		this.httpClient
