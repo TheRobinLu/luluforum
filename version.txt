@@ -1,1 +1,2 @@
+0.2.0 completed prompt fetch
 0.1.0 completed posts list fetch

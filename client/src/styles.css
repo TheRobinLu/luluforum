@@ -6,3 +6,13 @@
 .light-sky-blue {
 	background-color: #cbedff;
 }
+
+.lighter-sky-blue {
+	background-color: #cfefff;
+}
+
+.btn-text {
+	background-color: transparent;
+	border: none;
+	color: #444444;
+}

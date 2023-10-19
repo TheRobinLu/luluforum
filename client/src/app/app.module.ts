@@ -9,7 +9,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AddEmployeeComponent } from "./add-employee/add-employee.component";
 import { EditEmployeeComponent } from "./edit-employee/edit-employee.component";
-import { CategoriesComponent } from "./components/categories/categories.component"; // <-- add this line
 import { CategoriesMenuComponent } from "./components/categories/categoriesmenu.component";
 import { ForumsComponent } from "./components/forums/forums.component";
 import { PostsComponent } from "./components/posts/posts.component";
@@ -22,7 +21,6 @@ import { PostComponent } from "./components/post/post.component";
 		EmployeeFormComponent,
 		AddEmployeeComponent,
 		EditEmployeeComponent,
-		CategoriesComponent,
 		CategoriesMenuComponent,
 		ForumsComponent,
 		PostsComponent,

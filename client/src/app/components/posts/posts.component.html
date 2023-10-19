@@ -1,7 +1,7 @@
-<div class="p-1">Category: {{selectedCategory}}</div>
+<div class="p-1 ">Category: {{selectedCategory}}</div>
 <div class="p-1 d-flex flex-row  light-sky-blue" *ngFor="let post of posts$ | async">
 
-  <div class="px-1 ">{{post.topic }}</div>
+  <button class="px-1 btn-text" (click)="onPostClick(post._id )">{{post.topic }}</button>
 
   <!-- <div class="px-1">{{post.gptPromptId}}</div> -->
 
@@ -10,17 +10,17 @@
 </div>
 
 <!-- display current page -2 to cureent page +1 on left, and totalPages on right -->
-<div class="p-1 d-flex flex-row ">
+<div class="p-1 d-flex flex-row  lighter-sky-blue ">
   <div> </div>
   <div class="p-1 " *ngFor="let onePage of pages ">
 
-    <div>{{onePage}} </div>
+    <button (click)="onPageClick(onePage)">{{onePage}} </button>
 
   </div>
 
   <div class="p-1 px-4 ">
 
-    <div class=" ">Total: {{totalPages}} </div>
+    <button class=" " (click)="onPageClick(totalPages)">Total: {{totalPages}} </button>
 
   </div>
 </div>

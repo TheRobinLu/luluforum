@@ -21,6 +21,7 @@ export class ForumsComponent implements OnInit {
 
 	handlePostSelected(postId: string) {
 		this.selectedPostId = postId;
+		console.log("handlePostSelected", this.selectedPostId);
 	}
 	constructor() {}
 

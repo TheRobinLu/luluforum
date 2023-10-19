@@ -105,7 +105,7 @@ forumRouter.get("/total/:categoryname", async (req, res) => {
 	}
 });
 
-forumRouter.get("/:id", async (req, res) => {
+forumRouter.get("/id/:id", async (req, res) => {
 	try {
 		const id = req?.params?.id;
 		const query = { _id: new mongodb.ObjectId(id) };
@@ -113,6 +113,23 @@ forumRouter.get("/:id", async (req, res) => {
 
 		if (forum) {
 			res.status(200).send(forum);
+		} else {
+			res.status(404).send(`Failed to find an forum: ID ${id}`);
+		}
+	} catch (error) {
+		res.status(404).send(`Failed to find an forum: ID ${req?.params?.id}`);
+	}
+});
+
+forumRouter.get("/promptid/:id", async (req, res) => {
+	try {
+		const id = req?.params?.id;
+		console.log("promptid", id);
+		const query = { _id: new mongodb.ObjectId(id) };
+		const gptPrompt = await collections.gptprompts.findOne(query);
+		console.log("gptPrompt", gptPrompt);
+		if (gptPrompt) {
+			res.status(200).send(gptPrompt);
 		} else {
 			res.status(404).send(`Failed to find an forum: ID ${id}`);
 		}

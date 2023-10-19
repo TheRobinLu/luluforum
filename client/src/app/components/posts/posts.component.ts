@@ -67,4 +67,19 @@ export class PostsComponent implements OnInit {
 			this.page
 		);
 	}
+
+	onPageClick(page: number): void {
+		this.page = page;
+		if (page === 1) this.pages = [1, 2, 3];
+		else if (page === this.totalPages) this.pages = [page - 2, page - 1, page];
+		else this.pages = [page - 1, page, page + 1];
+
+		console.log("onPageClick", page);
+		this.fetchForums();
+	}
+
+	onPostClick(id: string | undefined): void {
+		if (!id) return;
+		this.postSelected.emit(id);
+	}
 }

@@ -1,0 +1,8 @@
+<div> {{( post$ | async)?.topic}} </div>
+
+<div> {{( prompt$ | async)?.user }} </div>
+
+<div *ngFor="let onemsg of ( prompt$ | async)?.msg ">
+  <div> {{onemsg.role}} </div>
+  <div> {{onemsg.content}} </div>
+</div>

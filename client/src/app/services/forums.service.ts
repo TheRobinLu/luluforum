@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject, map, tap } from "rxjs";
-import { IForum } from "../interface/interfaces";
+import { IForum, IGPTPrompt } from "../interface/interfaces";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -12,6 +12,7 @@ export class ForumService {
 	private forums$: Subject<IForum[]> = new Subject();
 	private posts$: Subject<IForum[]> = new Subject();
 	private post$: Subject<IForum> = new Subject();
+	private gptPrompt$: Subject<IGPTPrompt> = new Subject();
 	private totalPages$: Subject<number> = new Subject();
 	public totalPages: number = 1;
 
@@ -87,9 +88,24 @@ export class ForumService {
 		this.httpClient
 			.get<IForum>(`${this.url}/forums/id/${id}`)
 			.subscribe((post) => {
+				console.log("getForumById", post);
 				this.post$.next(post);
+
+				return post;
 			});
 
 		return this.post$;
+	}
+
+	getPromptById(id: string): Subject<IGPTPrompt> {
+		console.log("getForumById id", id);
+		this.httpClient
+			.get<IGPTPrompt>(`${this.url}/forums/promptid/${id}`)
+			.subscribe((prompt) => {
+				console.log("getForumById", prompt);
+				this.gptPrompt$.next(prompt);
+			});
+
+		return this.gptPrompt$;
 	}
 }
