@@ -17,6 +17,7 @@ export class ForumsComponent implements OnInit {
 
 	handleCategorySelected(category: string) {
 		this.selectedCategory = category;
+		this.selectedPostId = "";
 	}
 
 	handlePostSelected(postId: string) {

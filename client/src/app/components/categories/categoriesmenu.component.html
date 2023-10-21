@@ -1,10 +1,10 @@
-<div>
+<div class="lighter-cyan">
 
-  <div class="px-2 d-flex flex-wrap justify-content-start gap-2 " style="font-size: 80%">
+  <div class="p-2 d-flex flex-wrap justify-content-start gap-2 " style="font-size: 80%">
     <div *ngFor="let category of categories$ | async ">
       <!-- add onClick to send category.en as parameter -->
 
-      <button (click)="onCategoryClick(category.en)">
+      <button (click)="onCategoryClick(category.en)" class="light-cyan">
         <div>{{ isChinese ? category.en : category.cn }}</div>
 
       </button>

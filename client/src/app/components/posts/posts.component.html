@@ -1,5 +1,5 @@
-<div class="p-1 ">Category: {{selectedCategory}}</div>
-<div class="p-1 d-flex flex-row  light-sky-blue" *ngFor="let post of posts$ | async">
+<div class="p-1 lightest-cyan">Category: {{selectedCategory}}</div>
+<div class="p-1 d-flex flex-row  lighter-sky-blue" *ngFor="let post of posts$ | async">
 
   <button class="px-1 btn-text" (click)="onPostClick(post._id )">{{post.topic }}</button>
 
@@ -14,13 +14,13 @@
   <div> </div>
   <div class="p-1 " *ngFor="let onePage of pages ">
 
-    <button (click)="onPageClick(onePage)">{{onePage}} </button>
+    <button class="light-sky-blue " (click)="onPageClick(onePage)">{{onePage}} </button>
 
   </div>
 
   <div class="p-1 px-4 ">
 
-    <button class=" " (click)="onPageClick(totalPages)">Total: {{totalPages}} </button>
+    <button class="light-sky-blue " (click)="onPageClick(totalPages)">Total: {{totalPages}} </button>
 
   </div>
 </div>

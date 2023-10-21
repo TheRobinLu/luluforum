@@ -4,15 +4,35 @@
 }
 
 .light-sky-blue {
-	background-color: #cbedff;
+	background-color: #aae1ff;
 }
 
 .lighter-sky-blue {
-	background-color: #cfefff;
+	background-color: #bfeaff;
+}
+
+.lightest-sky-blue {
+	background-color: #daf3ff;
+}
+
+.light-cyan {
+	background-color: #88f8ff;
+}
+
+.lighter-cyan {
+	background-color: #aaf8ff;
+}
+
+.lightest-cyan {
+	background-color: #ddf8ff;
 }
 
 .btn-text {
 	background-color: transparent;
 	border: none;
 	color: #444444;
+}
+
+.pre-wrap {
+	white-space: pre-wrap;
 }

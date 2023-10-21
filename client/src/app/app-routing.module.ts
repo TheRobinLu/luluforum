@@ -7,7 +7,7 @@ import { CategoriesMenuComponent } from "./components/categories/categoriesmenu.
 import { ForumsComponent } from "./components/forums/forums.component";
 
 const routes: Routes = [
-	{ path: "", redirectTo: "categoriesmenu", pathMatch: "full" },
+	{ path: "", redirectTo: "forums", pathMatch: "full" },
 	{ path: "employees", component: EmployeesListComponent },
 	{ path: "employees/new", component: AddEmployeeComponent }, // <-- add this line
 	{ path: "employees/edit/:id", component: EditEmployeeComponent },
