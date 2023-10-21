@@ -1,0 +1,21 @@
+<div class="p-2 lighter-sky-blue">
+  <h4 class="p-1 flex text-center"> {{( post$ | async)?.topic}} </h4>
+
+  <div class="p-1">
+    <div class="lighter-sky-blue"> {{( prompt$ | async)?.user }} </div>
+    <br>
+
+    <div *ngFor="let onemsg of ( prompt$ | async)?.msg ">
+
+      <div *ngIf="onemsg.role === 'user'">
+
+        <pre class="light-sky-blue pre-wrap">{{onemsg.content}} </pre>
+
+      </div>
+      <div *ngIf="onemsg.role === 'assistant'">
+        <pre class="lightest-sky-blue pre-wrap">{{onemsg.content}} </pre>
+      </div>
+    </div>
+  </div>
+
+</div>

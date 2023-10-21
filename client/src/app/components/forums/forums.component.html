@@ -1,0 +1,11 @@
+<div>
+  <app-categoriesmenu (categorySelected)="handleCategorySelected($event)"></app-categoriesmenu>
+  <div *ngIf="selectedPostId === ''">
+    <app-posts [selectedCategory]="selectedCategory" (postSelected)="handlePostSelected($event)"></app-posts>
+  </div>
+
+  <div *ngIf="selectedPostId !== ''">
+    <app-post [postId]="selectedPostId"></app-post>
+  </div>
+
+</div>

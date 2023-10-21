@@ -3,6 +3,9 @@ import * as mongodb from "mongodb";
 import { collections } from "./database";
 
 export const forumRouter = express.Router();
+
+const postsPerPage = 30;
+
 forumRouter.use(express.json());
 
 forumRouter.get("/", async (_req, res) => {
@@ -14,7 +17,95 @@ forumRouter.get("/", async (_req, res) => {
 	}
 });
 
-forumRouter.get("/:id", async (req, res) => {
+forumRouter.get("/page/:page", async (req, res) => {
+	try {
+		const page = Number(req?.params?.page);
+		const forums = await collections.forums
+			.find({})
+			.skip(page * postsPerPage)
+			.limit(postsPerPage)
+			.toArray();
+		res.status(200).send(forums);
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+});
+
+//categories is category name array
+forumRouter.get("/tatol/:categoryname", async (req, res) => {
+	try {
+		const categoryname = req?.params?.categoryname;
+		const total = await collections.forums.countDocuments({
+			categories: categoryname,
+		});
+		res.status(200).send({ totalPage: total / postsPerPage });
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+});
+
+forumRouter.get("/categoryname/:categoryname/:page", async (req, res) => {
+	try {
+		const page = Number(req?.params?.page);
+		const categoryname = req?.params?.categoryname;
+
+		console.log("page", page, "categoryname", categoryname);
+		let query = {};
+		if (!categoryname || categoryname === "Home" || categoryname === "") {
+			query = {};
+		} else {
+			query = { categories: categoryname };
+		}
+
+		const posts = await collections.forums
+			.find(query)
+			.sort({ _id: -1 })
+			.skip((page - 1) * postsPerPage)
+			.limit(postsPerPage)
+			.toArray();
+
+		res.status(200).send(posts);
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+});
+
+forumRouter.get("/totals", async (_req, res) => {
+	try {
+		const totals = await collections.forums
+			.aggregate([
+				{
+					$group: {
+						_id: "$categoryname",
+						total: { $sum: 1 },
+					},
+				},
+			])
+			.toArray();
+
+		res.status(200).send(totals);
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+});
+
+forumRouter.get("/total/:categoryname", async (req, res) => {
+	try {
+		const categoryname = req?.params?.categoryname;
+		let query = {};
+		if (!categoryname || categoryname === "Home" || categoryname === "") {
+			query = {};
+		} else {
+			query = { categories: categoryname };
+		}
+		const total = await collections.forums.countDocuments(query);
+		res.status(200).send({ totalPages: Math.ceil(total / postsPerPage) });
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+});
+
+forumRouter.get("/id/:id", async (req, res) => {
 	try {
 		const id = req?.params?.id;
 		const query = { _id: new mongodb.ObjectId(id) };
@@ -22,6 +113,23 @@ forumRouter.get("/:id", async (req, res) => {
 
 		if (forum) {
 			res.status(200).send(forum);
+		} else {
+			res.status(404).send(`Failed to find an forum: ID ${id}`);
+		}
+	} catch (error) {
+		res.status(404).send(`Failed to find an forum: ID ${req?.params?.id}`);
+	}
+});
+
+forumRouter.get("/promptid/:id", async (req, res) => {
+	try {
+		const id = req?.params?.id;
+		console.log("promptid", id);
+		const query = { _id: new mongodb.ObjectId(id) };
+		const gptPrompt = await collections.gptprompts.findOne(query);
+		console.log("gptPrompt", gptPrompt);
+		if (gptPrompt) {
+			res.status(200).send(gptPrompt);
 		} else {
 			res.status(404).send(`Failed to find an forum: ID ${id}`);
 		}

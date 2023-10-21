@@ -7,7 +7,10 @@ categoryRouter.use(express.json());
 
 categoryRouter.get("/", async (_req, res) => {
 	try {
-		const categories = await collections.categrories.find({}).toArray();
+		const categories = await collections.categrories
+			.find({})
+			.sort({ order: 1 })
+			.toArray();
 		res.status(200).send(categories);
 	} catch (error) {
 		res.status(500).send(error.message);
