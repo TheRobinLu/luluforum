@@ -22,6 +22,7 @@ export class PostsComponent implements OnInit {
 	page: number = 1;
 	pages: number[] = [1, 2, 3];
 	totalPages: number = 1;
+	keywords: string = "";
 
 	posts$: Observable<IForum[]> = new Observable();
 
@@ -81,5 +82,16 @@ export class PostsComponent implements OnInit {
 	onPostClick(id: string | undefined): void {
 		if (!id) return;
 		this.postSelected.emit(id);
+	}
+
+	onSearchChange(keyword: string): void {
+		this.keywords = keyword;
+		console.log("onSearch", keyword);
+		//this.posts$ = this.forumService.search(keyword);
+	}
+
+	onSearchClick(): void {
+		console.log("onSearchClick", this.keywords);
+		//this.posts$ = this.forumService.search(this.keywords);
 	}
 }

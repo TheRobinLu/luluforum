@@ -1,5 +1,12 @@
-<div class="p-1 lightest-cyan">Category: {{selectedCategory}}</div>
-<div class="p-1 d-flex flex-row  lighter-sky-blue" *ngFor="let post of posts$ | async">
+<div class="d-flex flex-row justify-content-between lightest-cyan">
+  <div class="p-1 ">Category: {{selectedCategory}}</div>
+  <div class="position-relative p-1">
+    <input #searchKey placeholder="Search" (keyup)="onSearchChange(searchKey.value )" style="font-size: 80%" />
+    <i class="fas fa-search p-1 search-icon" (click)="onSearchClick()"></i>
+  </div>
+
+</div>
+<div class="p-1 d-flex flex-row lighter-sky-blue" *ngFor="let post of posts$ | async">
 
   <button class="px-1 btn-text" (click)="onPostClick(post._id )">{{post.topic }}</button>
 
