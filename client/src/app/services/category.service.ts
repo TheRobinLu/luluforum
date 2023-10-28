@@ -60,13 +60,12 @@ export class CategoryService {
 			ver: string;
 		}
 
-		this.httpClient.get<IVersion>(`${this.url}/categories/ver`).subscribe(
-			// (err) => console.log(err),
-			(res) => {
+		this.httpClient
+			.get<IVersion>(`${this.url}/categories/ver`)
+			.subscribe((res) => {
 				console.log("=======version: ", res.ver);
 				this.version$.next(res.ver);
-			}
-		);
+			});
 
 		return this.version$;
 	}
