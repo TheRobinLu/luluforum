@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	apiUrl: "http://forum.lulutalking.me/api",
+	apiUrl: "https://express-vercel1.vercel.app",
 };
