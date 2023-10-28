@@ -20,6 +20,10 @@ export class ForumService {
 		this.url = environment.apiUrl;
 	}
 
+	private delay(ms: number) {
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	}
+
 	private refreshForums() {
 		this.httpClient.get<IForum[]>(`${this.url}/forums`).subscribe((forums) => {
 			this.forums$.next(forums);
@@ -32,16 +36,16 @@ export class ForumService {
 	}
 
 	getForumsByCategoryName(name: string, page: number): Subject<IForum[]> {
-		console.log(
-			"getForumsByCategoryName",
-			`${this.url}/forums/categoryname/${name}/${page}`
-		);
-
-		this.httpClient
-			.get<IForum[]>(`${this.url}/forums/categoryname/${name}/${page}`)
-			.subscribe((posts) => {
-				this.posts$.next(posts);
-			});
+		try {
+			this.httpClient
+				.get<IForum[]>(`${this.url}/forums/categoryname/${name}/${page}`)
+				.subscribe((posts) => {
+					this.delay(1000);
+					this.posts$.next(posts);
+				});
+		} catch (error) {
+			console.log("========forum error: ", error);
+		}
 
 		return this.posts$;
 	}

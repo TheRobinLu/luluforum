@@ -4,7 +4,8 @@
 
 export const environment = {
 	production: false,
-	apiUrl: "http://localhost:5200",
+	//	apiUrl: "http://localhost:5200",
+	apiUrl: "https://express-vercel1.vercel.app",
 };
 
 /*
