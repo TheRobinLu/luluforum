@@ -1,6 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, Subject, tap } from "rxjs";
+import {
+	Observable,
+	Subject,
+	filter,
+	interval,
+	switchMap,
+	take,
+	tap,
+} from "rxjs";
 import { ICategory } from "../interface/interfaces";
 import { environment } from "src/environments/environment";
 
@@ -8,28 +16,55 @@ import { environment } from "src/environments/environment";
 	providedIn: "root",
 })
 export class CategoryService {
+	[x: string]: any;
 	private url: string;
 	private categories$: Subject<ICategory[]> = new Subject();
+	private version$: Subject<string> = new Subject();
 
 	constructor(private httpClient: HttpClient) {
 		this.url = environment.apiUrl;
 	}
 
-	private refreshCategories() {
-		this.httpClient
-			.get<ICategory[]>(`${this.url}/categories`)
-			.subscribe((categories) => {
-				this.categories$.next(categories);
-			});
+	private delay(ms: number) {
+		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
 
-	getCategories(): Subject<ICategory[]> {
+	private async refreshCategories() {
+		console.log("=======categories start");
+		this.httpClient.get<ICategory[]>(`${this.url}/categories`).subscribe(
+			(err) => console.log(err),
+			(categories) => {
+				console.log("=======categories: ", categories);
+				if (categories.length > 0) {
+					this.categories$.next(categories);
+				} else {
+					return;
+				}
+			}
+		);
+
+		await this.delay(1000);
+	}
+
+	getCategories(): Observable<ICategory[]> {
 		this.refreshCategories();
 		return this.categories$;
 	}
 
 	getCategory(id: string): Observable<ICategory> {
 		return this.httpClient.get<ICategory>(`${this.url}/categories/${id}`);
+	}
+
+	getversion(): Observable<string> {
+		this.httpClient.get<string>(`${this.url}/ver`).subscribe(
+			(err) => console.log(err),
+			(res) => {
+				console.log("=======version: ", res);
+				this.version$.next(res);
+			}
+		);
+
+		return this.version$;
 	}
 
 	createCategory(category: ICategory): Observable<string> {
