@@ -40,9 +40,10 @@ export class CategoriesMenuComponent implements OnInit {
 		console.log(this.categories$);
 	}
 
-	public onVersionClick(): void {
-		this.categoryService.getversion().subscribe((version) => {
-			alert(version);
+	public onVersionClick() {
+		this.categoryService.getversion().subscribe((ver) => {
+			console.log("===comp====version: ", ver);
+			alert(ver);
 		});
 	}
 }

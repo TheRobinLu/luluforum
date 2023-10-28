@@ -32,7 +32,7 @@ export class CategoryService {
 	private async refreshCategories() {
 		console.log("=======categories start");
 		this.httpClient.get<ICategory[]>(`${this.url}/categories`).subscribe(
-			(err) => console.log(err),
+			// (err) => console.log(err),
 			(categories) => {
 				console.log("=======categories: ", categories);
 				if (categories.length > 0) {
@@ -52,15 +52,19 @@ export class CategoryService {
 	}
 
 	getCategory(id: string): Observable<ICategory> {
-		return this.httpClient.get<ICategory>(`${this.url}/categories/${id}`);
+		return this.httpClient.get<ICategory>(`${this.url}/categories/id/${id}`);
 	}
 
 	getversion(): Observable<string> {
-		this.httpClient.get<string>(`${this.url}/ver`).subscribe(
-			(err) => console.log(err),
+		interface IVersion {
+			ver: string;
+		}
+
+		this.httpClient.get<IVersion>(`${this.url}/categories/ver`).subscribe(
+			// (err) => console.log(err),
 			(res) => {
-				console.log("=======version: ", res);
-				this.version$.next(res);
+				console.log("=======version: ", res.ver);
+				this.version$.next(res.ver);
 			}
 		);
 
