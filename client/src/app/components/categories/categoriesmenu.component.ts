@@ -15,6 +15,7 @@ export class CategoriesMenuComponent implements OnInit {
 	@Output() categorySelected: EventEmitter<string> = new EventEmitter<string>();
 	categories$: Observable<ICategory[]> = new Observable();
 	isChinese: boolean = false;
+	ver: string = "";
 
 	constructor(private categoryService: CategoryService) {}
 
@@ -40,9 +41,15 @@ export class CategoriesMenuComponent implements OnInit {
 		console.log(this.categories$);
 	}
 
-	public onVersionClick(): void {
-		this.categoryService.getversion().subscribe((version) => {
-			alert(version);
+	public onVersionClick() {
+		let showVersion = true;
+		this.categoryService.getversion().subscribe((ver) => {
+			console.log("===comp====version: ", ver);
+			if (showVersion) {
+				alert(ver);
+				showVersion = false;
+			}
+			return;
 		});
 	}
 }
